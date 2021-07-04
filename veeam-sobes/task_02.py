@@ -5,10 +5,14 @@
 вычисленные по соответствующему алгоритму и указанные в файле через пробел.
 Напишите программу, читающую данный файл и проверяющую целостность файлов.
 """
-names = ["name", "algorithm", "hash_sum"]
+columns = ["name", "algorithm", "hash_sum"]
+files = []
 
 # считать названия файлов, алгоритмов, хэш суммы
-with open("sum_file.csv") as file:
-    data = [line.split() for line in file]
-    for i in data:
-        print(dict(zip(names, i)))
+with open("sum_file.csv") as config:
+    for row in [line.split() for line in config]:
+        files.append(dict(zip(columns, row)))
+
+# по названию файла найти, проверить хэш, вывести итог
+for file in files:
+    print(file["name"])  # with open() as f: f.reads()
