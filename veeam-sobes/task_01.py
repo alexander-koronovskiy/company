@@ -11,6 +11,7 @@ import shutil
 import xml.etree.ElementTree as ET
 
 
+# парсинг xml файла, копирование
 def copying(config, source_path, destination_path, file_name):
     root = ET.parse(config).getroot()
     for type_tag in root.findall("file"):
