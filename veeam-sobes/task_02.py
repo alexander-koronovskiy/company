@@ -15,4 +15,13 @@ with open("sum_file.csv") as config:
 
 # по названию файла найти, проверить хэш, вывести итог
 for file in files:
-    print(file["name"])  # with open() as f: f.reads()
+    status = "NOT FOUND"
+    try:
+        with open(file["name"]) as f:
+            f.readlines()
+            print(file["hash_sum"])
+    except FileNotFoundError:
+        print(file["name"], status)
+
+# токенайзер для методов подсчета хэш суммы
+# алгоритмы подсчета
