@@ -5,6 +5,8 @@
 вычисленные по соответствующему алгоритму и указанные в файле через пробел.
 Напишите программу, читающую данный файл и проверяющую целостность файлов.
 """
+import hashlib
+
 columns = ["name", "algorithm", "hash_sum"]
 files = []
 
@@ -16,12 +18,16 @@ with open("sum_file.csv") as config:
 # по названию файла найти, проверить хэш, вывести итог
 for file in files:
     status = "NOT FOUND"
+    content = ""
     try:
         with open(file["name"]) as f:
-            f.readlines()
-            print(file["hash_sum"])
+            content += f.read()  # нужна обработка для очень большого контента
+            print(
+                file["name"],
+                int(hashlib.sha224(content.encode("utf-8")).hexdigest(), 16)
+                == int(file["hash_sum"], 16),
+            )
     except FileNotFoundError:
         print(file["name"], status)
 
-# токенайзер для методов подсчета хэш суммы
-# алгоритмы подсчета
+# токенайзер для методов hashlib
