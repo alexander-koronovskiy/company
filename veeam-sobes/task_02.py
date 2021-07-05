@@ -21,12 +21,12 @@ for file in files:
     content = ""
     try:
         with open(file["name"]) as f:
-            content += f.read()  # нужна обработка для очень большого контента
-            print(
-                file["name"],
-                int(hashlib.sha224(content.encode("utf-8")).hexdigest(), 16)
-                == int(file["hash_sum"], 16),
-            )
+            content += f.read()  # file buffer
+            if int(hashlib.sha1(content.encode("utf-8")).hexdigest(), 16) == int(file["hash_sum"], 16):
+                status = "OK"
+            else:
+                status = "FAIL"
+            print(file["name"], status)
     except FileNotFoundError:
         print(file["name"], status)
 
